@@ -1,0 +1,18 @@
+﻿# Assignment 3
+Weiyao Xie 
+wx2251
+
+## Get start
+ run the python file by inputing ```python wx2251_WeiyaoXie_Assignment3.py``` into terminal.
+The file will output four results: average validation score for SVM and Gradient Boosting classifier on test files and the same two models trained and tested on retest data.
+
+## Functions
+The file contains two functions:
+* ```create_mask_image``` function takes input image matrix and a threshold as input. The function will extract brain voxel area and exclude background and non-voxel area. Any value higher than the threshold should be brain area, and the original values are preserved. Values that are lower than the threshold are considered as non-brain area where the values are suppressed to 0. The function will return the masked images.
+* ``` validation``` functions will preprocess the data by calling ```create_mask_image```, and apply normalization and standard scaler on the images. I used PCA to reduce the data dimension to 90. Then I choose to use ```cross_val_score``` to compute my cross validation process. The ```cv=8``` parameter indicates I am using 8-fold cross validation to select the best model. Two models are trained here. One is SVM classifier, and anther one is gradient boosting classifier.
+
+## Conclusion
+The hyperparameters for both models are selected using GridsearchCV which is not included in this script as required. The hyperparameters for SVM are ```{kernel='rbf', C=100, gamma="auto"}```. The hyperparameters for Gradient Boosting Classifiers are ```{n_estimators = 200, max_depth=4, random_state=43}```. 
+
+The average accuracy for SVM are 0.7165661719233148, 0.6442872603586889 corresponding to test data and retest data. The average validation accuracy for Gradient Boosting Classifiers are 0.7089388785817357, 0.6366986188414759 corresponding to test data and retest data. I tried a very exhaustive grid search and shuffle the data before kfold validation to avoid class 1 from dominating but I still have trouble increasing my accuracy to 85%.
+
